@@ -59,3 +59,30 @@ export const createTask = async (c: Context) => {
         message: 'Task created successfully',
     });
 }
+
+//* Update a task
+export const updateTask = async (c: Context) => {
+    const taskId = c.req.param('id') as string;
+    const { taskName, taskCompleted }: UpdateTaskReq = await c.req.json();
+
+    if (!Bson.ObjectId.isValid(taskId)) {
+        c.status(400);
+        return c.json({
+            message: 'Invalid task ID',
+        });
+    }
+
+    const filter = { _id: new Bson.ObjectId(taskId) };
+    const update = { $set: { taskName, taskCompleted } };
+
+    const result = await Tasks.updateOne(filter, update);
+
+    if (result.matchedCount === 0) {
+        c.status(404);
+        return c.json({ message: 'Task not found' });
+    }
+
+    return c.json({
+        message: 'Task updated successfully',
+    });
+}

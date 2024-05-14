@@ -11,5 +11,8 @@ tasks.get('/:id', (c) => task.getTask(c));
 
 //* Create a new task
 tasks.post('/', (c) => task.createTask(c));
+
+//* Update a task
+tasks.put('/:id', (c) => task.updateTask(c));
 export default tasks;
 
