@@ -14,5 +14,8 @@ tasks.post('/', (c) => task.createTask(c));
 
 //* Update a task
 tasks.put('/:id', (c) => task.updateTask(c));
+
+//* Delete all tasks
+tasks.delete('/', (c) => task.deleteTasks(c));
 export default tasks;
 

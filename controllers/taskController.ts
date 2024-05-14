@@ -86,3 +86,16 @@ export const updateTask = async (c: Context) => {
         message: 'Task updated successfully',
     });
 }
+
+//* Delete all tasks
+export const deleteTasks = async (c: Context) => {
+    const deleteCount = await Tasks.deleteMany({ });
+
+    if (deleteCount === 0) {
+        return c.json({ message: 'No tasks found to delete' });
+    }
+
+    return c.json({
+        message: `${deleteCount} Tasks deleted successfully`,
+    });
+}
