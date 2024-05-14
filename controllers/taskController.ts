@@ -30,3 +30,32 @@ export const getTask = async (c: Context) => {
 
     return c.json({ data: task, });
 }
+
+//* Create a new task
+export const createTask = async (c: Context) => {
+    const { taskName }: CreateTaskReq = await c.req.json();
+
+    const taskExists = await Tasks.findOne({ taskName });
+
+    if (taskExists) {
+        c.status(409);
+        throw new Error('Task already exists');
+    };
+
+    const task = await Tasks.insertOne({
+        taskName,
+        taskCompleted: false,
+    });
+
+    if (!task) {
+        c.status(400);
+        throw new Error('Invalid task data');
+    };
+
+    const retrieveTask = await Tasks.findOne({ _id: task });
+
+    return c.json({
+        data: retrieveTask,
+        message: 'Task created successfully',
+    });
+}

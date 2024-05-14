@@ -8,5 +8,8 @@ tasks.get('/', (c) => task.getTasks(c));
 
 //* Get a task
 tasks.get('/:id', (c) => task.getTask(c));
+
+//* Create a new task
+tasks.post('/', (c) => task.createTask(c));
 export default tasks;
 
