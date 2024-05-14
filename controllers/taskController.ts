@@ -99,3 +99,22 @@ export const deleteTasks = async (c: Context) => {
         message: `${deleteCount} Tasks deleted successfully`,
     });
 }
+
+//* Delete a task
+export const deleteTask = async (c: Context) => {
+    const taskId = c.req.param("id");
+
+    if (!Bson.ObjectId.isValid(taskId)) {
+        return c.json({ message: 'Invalid task ID' });
+    }
+
+    const deleteCount = await Tasks.deleteOne({ _id: new Bson.ObjectId(taskId) });
+
+    if (deleteCount === 0) {
+        return c.json({ message: 'Task not found' });
+    }
+
+    return c.json({
+        message: 'Task deleted successfully',
+    });
+}
