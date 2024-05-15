@@ -1,7 +1,7 @@
 import { Hono } from 'https://deno.land/x/hono@v4.3.6/mod.ts'
 import { cors } from 'https://deno.land/x/hono/middleware.ts'
 
-import { Tasks } from "./routers/index.ts";
+import tasks from "./routers/taskRoute.ts";
 
 const app = new Hono();
 
@@ -16,7 +16,7 @@ function startServer(): void {
         );
         
         //* Task Route
-        app.route('/tasks', Tasks);
+        app.route('/tasks', tasks);
 
         Deno.serve({ port: 8080 }, app.fetch);
     } catch (error) {
