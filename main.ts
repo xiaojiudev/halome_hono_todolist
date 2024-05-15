@@ -1,5 +1,5 @@
 import { Hono } from 'https://deno.land/x/hono@v4.3.6/mod.ts'
-import { cors } from 'https://deno.land/x/hono/middleware.ts'
+import { cors } from 'https://deno.land/x/hono@v4.3.6/middleware.ts'
 
 import tasks from "./routers/taskRoute.ts";
 
