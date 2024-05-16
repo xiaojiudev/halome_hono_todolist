@@ -20,5 +20,5 @@ tasks.delete('/', (c) => task.deleteTasks(c));
 
 //* Delete a task
 tasks.delete('/:id', (c) => task.deleteTask(c));
-export default tasks;
 
+export default tasks;
