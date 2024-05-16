@@ -1,8 +1,6 @@
 import { Context } from "https://deno.land/x/hono@v4.3.6/mod.ts";
-import { Bson } from "https://deno.land/x/mongo@v0.32.0/mod.ts";
 
-import { CreateTaskReq, UpdateTaskReq } from "../types/type.ts";
-import Tasks from "../models/taskModel.ts";
+import { UpdateTaskReq } from "../types/type.ts";
 
 import { getAllTasks, getTaskById, createTaskService, deleteTaskById, deleteAllTasks, updateTaskById } from "../services/taskService.ts";
 
@@ -93,7 +91,7 @@ export const deleteTasks = async (c: Context) => {
 export const deleteTask = async (c: Context) => {
     try {
         const taskId = c.req.param("id") as string;
-        const deletedCount = await deleteTaskById(taskId);
+        await deleteTaskById(taskId);
         return c.json({ message: "Task deleted successfully" });
     } catch (error) {
         if (error.message === "Invalid task ID") {
