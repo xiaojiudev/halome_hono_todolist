@@ -1,7 +1,7 @@
 import { MongoClient } from "https://deno.land/x/mongo@v0.32.0/mod.ts";
 import { ObjectId } from "https://deno.land/x/mongo@v0.32.0/deps.ts";
 
-interface TaskSchema {
+export interface TaskSchema {
     _id: ObjectId;
     taskName: string;
     taskCompleted: boolean;
