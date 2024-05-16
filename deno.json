@@ -1,5 +1,27 @@
 {
   "tasks": {
     "start": "deno run --watch --allow-all main.ts"
+  },
+  "compilerOptions": {
+    "experimentalDecorators": true
+  },
+  "imports": {
+    "supertest": "npm:supertest@7",
+    "jest": "npm:@jest/globals@29.6.4"
+  },
+  "test": {
+    "include": [
+      "./test/*.test.ts"
+    ]
+  },
+  "lint": {
+    "include": [
+      ""
+    ],
+    "rules": {
+      "tags": [
+        "recommended"
+      ]
+    }
   }
 }
