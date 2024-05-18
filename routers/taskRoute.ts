@@ -1,24 +1,24 @@
 import { Hono } from "https://deno.land/x/hono@v4.3.6/mod.ts";
 import { task } from "../controllers/index.ts";
 
-const tasks = new Hono();
+const taskRoute = new Hono();
 
 //* Get all tasks
-tasks.get('/', (c) => task.getTasks(c));
+taskRoute.get('/', (c) => task.getTasks(c));
 
 //* Get a task
-tasks.get('/:id', (c) => task.getTask(c));
+taskRoute.get('/:id', (c) => task.getTask(c));
 
 //* Create a new task
-tasks.post('/', (c) => task.createTask(c));
+taskRoute.post('/', (c) => task.createTask(c));
 
 //* Update a task
-tasks.put('/:id', (c) => task.updateTask(c));
+taskRoute.put('/:id', (c) => task.updateTask(c));
 
 //* Delete all tasks
-tasks.delete('/', (c) => task.deleteTasks(c));
+taskRoute.delete('/', (c) => task.deleteTasks(c));
 
 //* Delete a task
-tasks.delete('/:id', (c) => task.deleteTask(c));
+taskRoute.delete('/:id', (c) => task.deleteTask(c));
 
-export default tasks;
+export default taskRoute;
