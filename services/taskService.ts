@@ -1,9 +1,9 @@
 import { Bson } from "https://deno.land/x/mongo@v0.32.0/mod.ts";
 import { CreateTaskReq, UpdateTaskReq } from "../types/type.ts";
-
-import Tasks from "../models/taskModel.ts";
+import { getTasksCollection } from "../models/taskModel.ts";
 
 export const getAllTasks = async () => {
+    const Tasks = await getTasksCollection();
     return await Tasks.find({ taskName: undefined }).toArray();
 };
 
@@ -12,6 +12,7 @@ export const getTaskById = async (taskId: string) => {
         throw new Error("Invalid task ID");
     }
 
+    const Tasks = await getTasksCollection();
     const task = await Tasks.findOne({ _id: new Bson.ObjectId(taskId) });
     if (!task) {
         throw new Error("Task not found");
@@ -20,8 +21,9 @@ export const getTaskById = async (taskId: string) => {
     return task;
 };
 
-export const createTaskService = async (taskData: CreateTaskReq) => {
+export const createTask = async (taskData: CreateTaskReq) => {
     const { taskName } = taskData;
+    const Tasks = await getTasksCollection();
     const taskExists = await Tasks.findOne({ taskName });
     
     if (taskExists) {
@@ -46,6 +48,7 @@ export const updateTaskById = async (taskId: string, taskData: UpdateTaskReq) =>
     const filter = { _id: new Bson.ObjectId(taskId) };
     const update = { $set: { taskName, taskCompleted } };
 
+    const Tasks = await getTasksCollection();
     const result = await Tasks.updateOne(filter, update);
 
     if (result.matchedCount === 0) {
@@ -56,6 +59,7 @@ export const updateTaskById = async (taskId: string, taskData: UpdateTaskReq) =>
 };
 
 export const deleteAllTasks = async () => {
+    const Tasks = await getTasksCollection();
     const deleteCount = await Tasks.deleteMany({});
 
     if (deleteCount === 0) {
@@ -70,6 +74,7 @@ export const deleteTaskById = async (taskId: string) => {
         throw new Error("Invalid task ID");
     }
 
+    const Tasks = await getTasksCollection();
     const deleteCount = await Tasks.deleteOne({ _id: new Bson.ObjectId(taskId) });
 
     if (deleteCount === 0) {
