@@ -1,7 +1,7 @@
 {
   "tasks": {
     "start": "deno run --watch --allow-all main.ts",
-    "test": "deno test --allow-net"
+    "test": "deno test --allow-net --allow-read"
   },
   "compilerOptions": {
     "experimentalDecorators": true
