@@ -4,9 +4,12 @@ import { afterAll, describe, it } from "https://deno.land/std@0.154.0/testing/bd
 import { assertArrayIncludes, assertEquals, assertExists } from "https://deno.land/std@0.154.0/testing/asserts.ts";
 
 import tasks from "../routers/taskRoute.ts";
+import { connectDB } from "../models/db.ts";
 import { TaskSchema } from "../models/taskModel.ts";
 import { deleteAllTasks } from "../services/taskService.ts";
 import { CreateTaskReq, UpdateTaskReq } from "../types/type.ts";
+
+await connectDB();
 
 describe("E2E Test - Task API", () => {
     const app = new Hono();
