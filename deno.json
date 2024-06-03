@@ -1,28 +1,45 @@
 {
-  "tasks": {
-    "start": "deno run --watch --allow-all main.ts",
-    "test": "deno test --allow-net --allow-read"
-  },
-  "compilerOptions": {
-    "experimentalDecorators": true
-  },
-  "imports": {
-    "supertest": "npm:supertest@7",
-    "jest": "npm:@jest/globals@29.6.4"
-  },
-  "test": {
-    "include": [
-      "./tests/*.test.ts"
-    ]
-  },
-  "lint": {
-    "include": [
-      ""
-    ],
-    "rules": {
-      "tags": [
-        "recommended"
-      ]
-    }
-  }
+	"tasks": {
+		"start": "deno run --watch --allow-all --unstable-cron main.ts",
+		"test": "deno test --allow-net --allow-read"
+	},
+	"unstable": ["cron"],
+	"imports": {
+		"supertest": "npm:supertest@7",
+		"jest": "npm:@jest/globals@29.6.4"
+	},
+	"test": {
+		"include": [
+			"./tests/*.test.ts"
+		]
+	},
+	"compilerOptions": {
+		"allowJs": true,
+		"experimentalDecorators": true,
+		"jsx": "react",
+		"strict": true,
+		"lib": [
+			"deno.window",
+			"deno.unstable"
+		]
+	},
+	"lint": {
+		"include": ["./"],
+		"exclude": ["./test/", "./test/*.ts"],
+		"rules": {
+			"tags": ["recommended"],
+			"include": ["ban-untagged-todo"],
+			"exclude": ["no-unused-vars"]
+		}
+	},
+	"fmt": {
+		"useTabs": true,
+		"lineWidth": 100,
+		"indentWidth": 4,
+		"semiColons": true,
+		"singleQuote": false,
+		"proseWrap": "preserve",
+		"include": ["./"],
+		"exclude": ["./test/", "./test/*.ts"]
+	}
 }
